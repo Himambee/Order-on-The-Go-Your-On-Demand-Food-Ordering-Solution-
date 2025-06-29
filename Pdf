@@ -1,0 +1,91 @@
+Introduction
+
+SB Foods is a modern web application enabling users to browse menus, order food, and
+
+manage accounts, while offering restaurants tools to manage products and view orders ?
+
+all built using the MERN stack (MongoDB, Express, React, Node.js).
+
+2. Architecture & ER Diagrams
+
+The architecture includes a React frontend, Express.js backend, and MongoDB for data
+
+storage.
+
+3. Prerequisites & Setup
+
+- Node.js and npm (https://nodejs.org/en/download/)
+
+- MongoDB (https://www.mongodb.com/try/download/community)
+
+- Git (https://git-scm.com/downloads)
+
+- Clone the project: git clone
+
+https://github.com/harsha-vardhan-reddy-07/Food-Ordering-App-MERN
+
+- cd Food-Ordering-App-MERN
+
+- npm install
+
+- npm run dev
+
+4. Project Structure
+
+SB-Foods/
+
+??? client/ # React Frontend
+
+??? server/ # Node.js + Express Backend
+
+5. Backend Development
+
+# server/index.js
+
+const express = require('express');
+
+const mongoose = require('mongoose');
+
+const cors = require('cors');
+
+const app = express();
+
+app.use(express.json());app.use(cors());
+mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology:
+true });
+app.use('/api/users', require('./routes/users'));
+app.use('/api/products', require('./routes/products'));
+app.use('/api/orders', require('./routes/orders'));
+app.listen(process.env.PORT || 5000);
+6. Frontend Development
+# ProductList Component
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+export default function ProductList() {
+ const [products, setProducts] = useState([]);
+ useEffect(() => { axios.get('/api/products').then(res => setProducts(res.data)); },
+[]);
+ return (
+ <div>{products.map(p => <div
+key={p._id}><h3>{p.name}</h3><p>${p.price}</p></div>)}</div>
+ );
+}
+7. Key Features & Flows
+- User login, product browsing, cart, checkout, and order tracking.
+- Admin dashboard for managing users, products, and orders.
+8. Database Schemas
+# User Schema
+const userSchema = new mongoose.Schema({ username: String, email: String, password:
+String });
+module.exports = mongoose.model('User', userSchema);
+# Product Schemaconst productSchema = new mongoose.Schema({ name: String, description: String, price:
+Number });
+module.exports = mongoose.model('Product', productSchema);
+# Cart and Order Schemas are similar and reference user/product IDs.
+9. Screenshots & UI
+Landing page, Restaurants list, Menu, Login/Register, Cart, Admin Dashboard etc.
+(Include in full version with images)
+10. Repository & References
+GitHub: https://github.com/harsha-vardhan-reddy-07/Food-Ordering-App-MERN
+React Docs: https://reactjs.org/docs/getting-started.html
+MongoDB Docs: https://www.mongodb.com/docs/
